@@ -1,0 +1,43 @@
+name: Update firmary
+
+# Keeps Formula/firmary.rb at the latest release. Every release publishes its formula next to its
+# downloads at https://firmary.app/cli/<version>/firmary.rb, and /cli/latest/ points at the newest
+# stable one; this copies it here when it changes, so `brew upgrade` sees it within the hour. This
+# repository holds only the formula: the program's source is not public.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Fetch the latest formula from firmary.app
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL --retry 3 -o "$RUNNER_TEMP/firmary.rb" https://firmary.app/cli/latest/firmary.rb
+          ruby -c "$RUNNER_TEMP/firmary.rb" > /dev/null
+          # Every download it names is on firmary.app.
+          if grep -E '^\s*url ' "$RUNNER_TEMP/firmary.rb" | grep -v 'url "https://firmary.app/cli/'; then
+            echo "::error::The formula names a download that is not on firmary.app."
+            exit 1
+          fi
+          mkdir -p Formula
+          cp "$RUNNER_TEMP/firmary.rb" Formula/firmary.rb
+      - name: Commit it if it changed
+        run: |
+          git add Formula/firmary.rb
+          git diff --cached --quiet && exit 0
+          version=$(sed -n 's/^  version "\(.*\)"$/\1/p' Formula/firmary.rb)
+          git -c user.name=Firmary -c user.email=support@firmary.app commit -m "firmary $version"
+          git push
