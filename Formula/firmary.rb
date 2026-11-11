@@ -1,28 +1,28 @@
-# firmary 0.1.0. Written for each release; edits here are replaced.
+# firmary 0.2.0. Written for each release; edits here are replaced.
 class Firmary < Formula
-  desc "Command-line client for Firmary, for people and AI agents"
+  desc "Command-line and full-screen client for Firmary, for people and AI agents"
   homepage "https://firmary.app/docs/cli"
-  version "0.1.0"
+  version "0.2.0"
   license :cannot_represent
 
   on_macos do
     on_arm do
-      url "https://firmary.app/cli/0.1.0/firmary-cli-aarch64-apple-darwin.tar.xz"
-      sha256 "cd2a07fdf8cfd038ae321edc337425cc5214f91da61022316483f20c537b9047"
+      url "https://firmary.app/cli/0.2.0/firmary-cli-aarch64-apple-darwin.tar.xz"
+      sha256 "c18a42518a1f6eb78df39605cba3b6d8c1931c30ef7eeafeb5678cb877ec5ffe"
     end
     on_intel do
-      url "https://firmary.app/cli/0.1.0/firmary-cli-x86_64-apple-darwin.tar.xz"
-      sha256 "f0b2cbfeaee160e7076cd6c3c727e68256b39da203fcc411cc0ca00ee5f4d624"
+      url "https://firmary.app/cli/0.2.0/firmary-cli-x86_64-apple-darwin.tar.xz"
+      sha256 "e395aede52a9cf68c547a81dc47e70acb3d8ae0584f2be857deb34395bebe791"
     end
   end
   on_linux do
     on_arm do
-      url "https://firmary.app/cli/0.1.0/firmary-cli-aarch64-unknown-linux-musl.tar.xz"
-      sha256 "a42202759cfccda98bf72a7b1124df67662229bec95630f97db7d5fefaaad1de"
+      url "https://firmary.app/cli/0.2.0/firmary-cli-aarch64-unknown-linux-musl.tar.xz"
+      sha256 "0afe16b728d83b4353ec6fab6e1622e0de93a1631098c23229196a384162c57c"
     end
     on_intel do
-      url "https://firmary.app/cli/0.1.0/firmary-cli-x86_64-unknown-linux-musl.tar.xz"
-      sha256 "c981a951ec49a2dd13604390c9e257e73293aae612c3ea0f969302409f6807b7"
+      url "https://firmary.app/cli/0.2.0/firmary-cli-x86_64-unknown-linux-musl.tar.xz"
+      sha256 "0993c38422517d5dd1257cdd9bc11d380c3fd7da62a786e79ef174b1ff957bae"
     end
   end
 
